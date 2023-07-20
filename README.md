@@ -1,4 +1,12 @@
-# script 一些一键部署脚本
+# script 一些一键脚本
+
+## Bench
+
+简单融合了一些其他 bench 脚本。
+
+```
+bash <(wget -qO- https://raw.githubusercontent.com/vpslog/script/main/bench.sh)
+```
 
 ## Caddy
 
