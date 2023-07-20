@@ -11,5 +11,6 @@ sudo apt-get update
 sudo apt-get install -y python3-pip
 pip3 install docker argparse
 
-# 运行 create_ssh_containers.py 脚本
-python3 docker1.py "$@"
+# 运行 docker_nat_server.py 脚本
+wget https://raw.githubusercontent.com/vpslog/script/main/python/docker_nat_server.py
+python3 docker_nat_server.py "$@"
