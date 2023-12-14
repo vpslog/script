@@ -9,6 +9,8 @@ true > $log
 
 echo ""
 echo " A Multiple Bench Script By VPSLOG"
+echo " 频道: https://t.me/vpslognet "
+echo " 网站：https://post.vpslog.org/ "
 # echo "------------------------------------------------------------------------------"
 echo ""
 
