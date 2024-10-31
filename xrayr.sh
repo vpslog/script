@@ -2,17 +2,16 @@
 
 # 检查参数数量是否正确
 if [ "$#" -ne 6 ]; then
-    echo "用法: $0 <zone_id> <api_key> <email> <domain> <api_host> <api_key_for_host>"
+    echo "用法: $0 <zone_id> <api_key> <domain> <api_host> <api_key_for_host>"
     exit 1
 fi
 
 # 从脚本参数获取变量
 zone_id=$1
 api_key=$2
-email=$3
-domain=$4
-api_host=$5
-api_key_for_host=$6
+domain=$3
+api_host=$4
+api_key_for_host=$5
 
 # 1. 获取 IPv4 地址
 ipv4=$(curl -4 ip.sb)
@@ -134,8 +133,7 @@ Nodes:
         Provider: cloudflare
         Email: test@test.com
         DNSEnv: 
-          CLOUDFLARE_EMAIL: ${email}
-          CLOUDFLARE_API_KEY: ${api_key}
+          CF_DNS_API_TOKEN: ${api_key}
 EOF
 
 # 6. 启动 XrayR
