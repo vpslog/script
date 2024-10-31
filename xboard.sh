@@ -62,7 +62,7 @@ curl "${api_host}/api/v1/${api_path}/server/vmess/save" \
   -H 'sec-fetch-mode: cors' \
   -H 'sec-fetch-site: same-origin' \
   -H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 Edg/130.0.0.0' \
-  --data-raw "tls=1&rate=1&name=${ip}&host=${subdomain}&port=4444&server_port=4444&network=ws&networkSettings[path]=%2F&networkSettings[header][Host]=${subdomain}&group_id[0]=1&ips[0]=${ip}&dnsSettings="
+  --data-raw "tls=1&rate=1&name=${ipv4}&host=${subdomain}&port=4444&server_port=4444&network=ws&networkSettings[path]=%2F&networkSettings[header][Host]=${subdomain}&group_id[0]=1&ips[0]=${ipv4}&dnsSettings="
 
 # 执行请求并获取最后一个项的 id
 node_id=$(curl -s "${api_host}/api/v1/${api_path}/server/manage/getNodes" \
