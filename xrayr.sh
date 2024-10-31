@@ -16,7 +16,22 @@ api_key_for_host=$6
 
 # 1. 获取 IPv4 地址
 ipv4=$(curl -4 ip.sb)
-echo "当前 IPv4 地址为: ${ipv4}"
+# 打印当前 IPv4 地址
+echo "当前 IPv4 地址为: "
+echo "${ipv4}"
+
+# 打印完整域名
+echo "完整域名为: "
+echo "${subdomain}"
+
+# 打印 WebSocket 配置
+echo "WebSocket 配置:"
+echo "{"
+echo '  "path": "/",'
+echo '  "header": {'
+echo "    \"Host\": \"${subdomain}\""
+echo '  }'
+echo "}"
 
 # 2. 请求用户输入 NodeID
 read -p "请输入 NodeID: " node_id
