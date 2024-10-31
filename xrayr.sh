@@ -15,7 +15,7 @@ api_host=$5
 api_key_for_host=$6
 
 # 1. 获取 IPv4 地址
-ipv4=$(curl -4 -s https://ip.sb)
+ipv4=$(curl -4 ip.sb)
 echo "当前 IPv4 地址为: ${ipv4}"
 
 # 2. 请求用户输入 NodeID
