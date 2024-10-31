@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 检查参数数量是否正确
-if [ "$#" -ne 6 ]; then
+if [ "$#" -ne 5 ]; then
     echo "用法: $0 <zone_id> <api_key> <domain> <api_host> <api_key_for_host>"
     exit 1
 fi
