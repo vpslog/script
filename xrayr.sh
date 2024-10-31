@@ -20,6 +20,8 @@ ipv4=$(curl -4 ip.sb)
 echo "当前 IPv4 地址为: "
 echo "${ipv4}"
 
+subdomain="${ipv4}.${domain}"
+
 # 打印完整域名
 echo "完整域名为: "
 echo "${subdomain}"
@@ -37,8 +39,6 @@ echo "}"
 read -p "请输入 NodeID: " node_id
 
 # 3. 使用 Cloudflare API 添加或更新 DNS 记录
-subdomain="${ipv4}.${domain}"
-
 curl -X POST "https://api.cloudflare.com/client/v4/zones/${zone_id}/dns_records" \
      -H "Authorization: Bearer ${api_key}" \
      -H "Content-Type: application/json" \
