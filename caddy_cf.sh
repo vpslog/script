@@ -62,28 +62,27 @@ curl -X POST "https://api.cloudflare.com/client/v4/zones/${zone_id}/dns_records"
      }'
 
 # 检查是否需要安装 Caddy
-if [ "$INSTALL_CADDY" = true ]; then
-  if dpkg -s caddy >/dev/null 2>&1; then
-    echo "Caddy is already installed on this system."
-  else
-    # 安装 Caddy
-    echo "Installing Caddy..."
-    sudo apt update && sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https curl gnupg2
-    curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
-    echo "deb [signed-by=/usr/share/keyrings/caddy-stable-archive-keyring.gpg] https://dl.cloudsmith.io/public/caddy/stable/deb/debian any-version main" | sudo tee /etc/apt/sources.list.d/caddy-stable.list
-    sudo apt update && sudo apt install -y caddy
+if dpkg -s caddy >/dev/null 2>&1; then
+  echo "Caddy is already installed on this system."
+else
+  # 安装 Caddy
+  echo "Installing Caddy..."
+  sudo apt update && sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https curl gnupg2
+  curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
+  echo "deb [signed-by=/usr/share/keyrings/caddy-stable-archive-keyring.gpg] https://dl.cloudsmith.io/public/caddy/stable/deb/debian any-version main" | sudo tee /etc/apt/sources.list.d/caddy-stable.list
+  sudo apt update && sudo apt install -y caddy
 
-    # 检查安装是否成功
-    if dpkg -s caddy >/dev/null 2>&1; then
-      # 输出安装成功消息
-      echo -e "\033[32mCaddy has been installed successfully.\033[0m"
-    else
-      # 输出安装失败消息并退出
-      echo -e "\033[31mFailed to install Caddy.\033[0m"
-      exit 1
-    fi
+  # 检查安装是否成功
+  if dpkg -s caddy >/dev/null 2>&1; then
+    # 输出安装成功消息
+    echo -e "\033[32mCaddy has been installed successfully.\033[0m"
+  else
+    # 输出安装失败消息并退出
+    echo -e "\033[31mFailed to install Caddy.\033[0m"
+    exit 1
   fi
 fi
+
 
 if [ "$EDIT_CADDYFILE" = true ]; then
   # 使用 Nano 编辑 Caddyfile 文件
