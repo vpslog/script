@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 解析命令行选项
-while getopts ":ie:nr:" opt; do
+while getopts ":ie:z:k:nr:" opt; do
   case ${opt} in
     n )
       EDIT_CADDYFILE=true
