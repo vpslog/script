@@ -25,7 +25,7 @@ echo "${ipv4}"
 subdomain="${ipv4}.${domain}"
 
 # 执行请求并获取响应
-response=$(curl -s "${api_host}/api/v1/passport/auth/login" \
+response=$(curl -s "${api_host}/api/v2/passport/auth/login" \
   -H 'accept: */*' \
   -H 'accept-language: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6' \
   -H 'content-type: application/x-www-form-urlencoded' \
@@ -46,7 +46,7 @@ response=$(curl -s "${api_host}/api/v1/passport/auth/login" \
 jwt=$(echo "$response" | grep -o '"auth_data":"[^"]*' | sed 's/"auth_data":"//')
 
 # 添加节点
-curl "${api_host}/api/v1/${api_path}/server/vmess/save" \
+curl "${api_host}/api/v2/${api_path}/server/vmess/save" \
   -H 'accept: */*' \
   -H 'accept-language: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6' \
   -H "authorization: ${jwt}" \
@@ -65,7 +65,7 @@ curl "${api_host}/api/v1/${api_path}/server/vmess/save" \
   --data-raw "tls=1&rate=1&name=${ipv4}&host=${subdomain}&port=4444&server_port=4444&network=ws&networkSettings[path]=%2F&networkSettings[header][Host]=${subdomain}&group_id[0]=1&ips[0]=${ipv4}&dnsSettings="
 
 # 执行请求并获取最后一个项的 id
-node_id=$(curl -s "${api_host}/api/v1/${api_path}/server/manage/getNodes" \
+node_id=$(curl -s "${api_host}/api/v2/${api_path}/server/manage/getNodes" \
   -H 'accept: */*' \
   -H 'accept-language: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6' \
   -H "authorization: ${jwt}" \
