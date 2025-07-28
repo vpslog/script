@@ -109,9 +109,9 @@ InboundConfigPath:
 OutboundConfigPath: 
 ConnectionConfig:
   Handshake: 4
-  ConnIdle: 30
-  UplinkOnly: 2
-  DownlinkOnly: 4
+  ConnIdle: 3000
+  UplinkOnly: 20
+  DownlinkOnly: 40
   BufferSize: 64
 Nodes:
   - PanelType: "NewV2board"
@@ -121,7 +121,7 @@ Nodes:
       NodeID: ${node_id}
       NodeType: V2ray
       Timeout: 30
-      EnableVless: false
+      EnableVless: true
       VlessFlow: "xtls-rprx-vision"
       SpeedLimit: 0
       DeviceLimit: 0
@@ -155,21 +155,7 @@ Nodes:
           Path: 
           Dest: 80
           ProxyProtocolVer: 0
-      DisableLocalREALITYConfig: false
-      EnableREALITY: false
-      REALITYConfigs:
-        Show: true
-        Dest: www.amazon.com:443
-        ProxyProtocolVer: 0
-        ServerNames: 
-          - www.amazon.com
-        PrivateKey: YOUR_PRIVATE_KEY
-        MinClientVer: 
-        MaxClientVer: 
-        MaxTimeDiff: 0
-        ShortIds: 
-          - ""
-          - 0123456789abcdef
+      DisableLocalREALITYConfig: true
       CertConfig:
         CertMode: dns
         CertDomain: "${subdomain}"
