@@ -63,3 +63,11 @@ bash <(curl -s https://raw.githubusercontent.com/vpslog/script/main/docker.sh) -
 
 这将创建 5 个 Docker 容器，每个容器的内存限制为 256MB，CPU 配额为 0.25 核，并使用 192.168.0.1 宿主机 IP（仅在最终输出结果时使用，方便直接复制结果分享）。如果不指定参数，则会使用默认值。
 
+## SMB
+
+Samba (SMB) 中文交互式配置脚本，用于配置SMB共享。
+
+```
+bash <(curl -s https://raw.githubusercontent.com/vpslog/script/refs/heads/main/smb.sh)
+```
+

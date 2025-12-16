@@ -30,18 +30,19 @@ SMB_CONF="/etc/samba/smb.conf"
 # 检查 Samba 是否已安装
 if ! command -v smbd >/dev/null 2>&1; then
   echo "📦 安装 Samba..."
-  $PKG_INSTALL samba samba-client >/dev/null
+  $PKG_INSTALL samba samba-client
 fi
 
 # 函数定义
 
 function check_existing_shares {
-  echo "📊 现有 Samba 共享："
-  testparm -s 2>/dev/null | grep -E '^\[' | sed 's/\[//' | sed 's/\]//' | while read share; do
-    if [[ "$share" != "global" && "$share" != "printers" && "$share" != "print$" ]]; then
+  SHARES=$(testparm -s 2>/dev/null | grep -E '^\[' | sed 's/\[//' | sed 's/\]//' | grep -v -E '^(global|printers|print\$)$' || true)
+  if [[ -n "$SHARES" ]]; then
+    echo "📊 现有 Samba 共享："
+    echo "$SHARES" | while read share; do
       echo "  - $share"
-    fi
-  done
+    done
+  fi
 }
 
 function delete_share {
@@ -81,15 +82,9 @@ function add_samba_user {
     fi
   fi
 
-  # 新增流程
-  echo "👥 现有 Linux 用户："
-  cut -d: -f1 /etc/passwd | grep -v '^#' | while read user; do
-    echo "  - $user"
-  done
-
   echo
   echo "Smb 用户和 Linux 用户共享目录权限，但是密码可以不同。"
-  read -rp "请输入允许访问的 Linux 用户名: " SMB_USER
+  read -rp "请输入需要使用的 Linux 用户名: " SMB_USER
 
   # 检查用户
   if ! id "$SMB_USER" >/dev/null 2>&1; then
