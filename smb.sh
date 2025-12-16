@@ -175,6 +175,7 @@ function add_samba_share {
    browseable = yes
    writable = yes
    valid users = $SMB_USER
+   force users = $SMB_USER
    read only = no
 EOF
 
