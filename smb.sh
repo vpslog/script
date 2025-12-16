@@ -31,6 +31,50 @@ SMB_CONF="/etc/samba/smb.conf"
 if ! command -v smbd >/dev/null 2>&1; then
   echo "📦 安装 Samba..."
   $PKG_INSTALL samba samba-client
+
+  # 如果配置文件不存在或为空，写入安全默认配置
+  if [[ ! -f "$SMB_CONF" ]] || [[ ! -s "$SMB_CONF" ]]; then
+    echo "🔒 写入安全默认 Samba 配置"
+    mkdir -p /etc/samba
+    cat >"$SMB_CONF" <<EOF
+[global]
+workgroup = WORKGROUP
+server string = Samba Server
+server role = standalone server
+
+# 协议与加密
+server min protocol = SMB3
+server max protocol = SMB3
+smb encrypt = required
+
+# 禁用旧认证机制
+ntlm auth = no
+lanman auth = no
+client lanman auth = no
+
+# 匿名与枚举防护
+restrict anonymous = 2
+map to guest = never
+
+# 身份与权限
+obey pam restrictions = yes
+unix password sync = no
+pam password change = no
+
+# 日志
+log file = /var/log/samba/log.%m
+max log size = 1000
+logging = file
+
+# 禁用 NetBIOS
+disable netbios = yes
+dns proxy = no
+
+# 禁用 usershare
+usershare allow guests = no
+usershare max shares = 0
+EOF
+  fi
 fi
 
 # 函数定义
